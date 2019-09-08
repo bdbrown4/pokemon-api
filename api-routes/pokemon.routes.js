@@ -19,7 +19,6 @@ router.get('/', function (_req, _res) {
         message: 'Welcome to Pokemon Center API! We will transport and retrieve all your pokemon and items!'
     });
 });
-// Pokemon routes
 /**
  * @swagger
  * definitions:
