@@ -60,21 +60,27 @@ module.exports.addPokemon = function (_req, _res) {
     });
 }
 
-module.exports.addItem = function (_req, _res) {
-    let Item = new ItemSchema();
-    Item.name = _req.body.name;
+module.exports.addItems = function (_req, _res) {
+    let arr = [];
+    _req.body.forEach(x => {
+        let Item = new ItemSchema();
+        Item.name = x.name;
+        arr.push(Item);
+    })    
     
 // save the Item and check for _err
-    Item.save(function (_err) {
+    ItemSchema.insertMany(arr, function (_err) {
         if (_err)
             _res.status('400').send({
                 displayMessage: 'Something went wrong! We can\'t send your item to our systems right now!', 
                 errorMessage: _err.errmsg
             });
         else {
+            let itemArr = '';
+            arr.forEach(x => itemArr += x.name + ', ')
             _res.json({
-                message: `Your item, ${Item.name}, has been successfuly transported to our Pokemon Center!`,
-                data: Item
+                message: `Your item(s), ${itemArr.trim()} have been successfuly transported to our Pokemon Center!`,
+                data: itemArr.substring(0, itemArr.length - 2)
             });
         }
     });

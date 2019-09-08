@@ -26,7 +26,7 @@ const itemController = require('../controllers/item.controller');
  *           $ref: '#/definitions/Item'
  */
 router.route('/item/retrieveItems').get(itemController.retrieveItems);
-router.route('/item/addItem').post(itemController.addItem);
+router.route('/item/addItems').post(itemController.addItems);
 
 // Export API routes
 module.exports = router;
