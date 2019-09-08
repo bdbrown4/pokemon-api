@@ -11,11 +11,7 @@ router.get('/', function (_req, _res) {
 });
 // Pokemon routes
 router.route('/pokemon/retrievePokemon').get(pokemonController.retrievePokemon);
-// router.route('/contacts/:contact_id')
-//     .get(contactController.view)
-//     .patch(contactController.update)
-//     .put(contactController.update)
-//     .delete(contactController.delete);
+router.route('/pokemon/retrievePokemon/:name').get(pokemonController.retrievePokemonByName);
 
 // Export API routes
 module.exports = router;
