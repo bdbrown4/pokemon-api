@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 const PokemonModel = require('../models/pokemon.model');
+const ItemModel = require('../models/item.model');
 
-// Export Pokemon model
-const PokemonSchema = module.exports = mongoose.model('pokemon', mongoose.Schema(PokemonModel, { collection: 'Pokemon' }));
+// Pokemon Schema
+const PokemonSchema = mongoose.model('pokemon', mongoose.Schema(PokemonModel, { collection: 'Pokemon' }));
+// Item Schema
+const ItemSchema = mongoose.model('item', mongoose.Schema(ItemModel, { collection: 'Item' }));
 
 module.exports.retrievePokemon = function (_req, _res) {
     PokemonSchema.find((_err, _pokemon) => {
@@ -57,10 +60,29 @@ module.exports.addPokemon = function (_req, _res) {
     });
 }
 
-module.exports.addItems = function (_callback, _limit) {
+module.exports.addItem = function (_req, _res) {
+    let Item = new ItemSchema();
+    Item.name = _req.body.name;
     
+// save the Item and check for _err
+    Item.save(function (_err) {
+        if (_err)
+            _res.status('400').send({
+                displayMessage: 'Something went wrong! We can\'t send your item to our systems right now!', 
+                errorMessage: _err.errmsg
+            });
+        else {
+            _res.json({
+                message: `Your item, ${Item.name}, has been successfuly transported to our Pokemon Center!`,
+                data: Item
+            });
+        }
+    });
 }
 
-module.exports.retrieveItems = function (_callback, _limit) {
-    
+module.exports.retrieveItems = function (_req, _res) {
+    ItemSchema.find((_err, _item) => {
+        _err ? _res.json('There was a problem fetching your items!', _err) :
+        _res.json(_item);
+    }).limit(10000000000000);
 }
