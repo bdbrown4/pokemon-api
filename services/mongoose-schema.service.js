@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const PokemonModel = require('../models/pokemon.model');
-// Export Contact model
+// Export Pokemon model
 let PokemonSchema = module.exports = mongoose.model('pokemon', mongoose.Schema(PokemonModel, { collection: 'Pokemon' }));
 
 module.exports.retrievePokemon = function (_req, _res) {
@@ -11,13 +11,20 @@ module.exports.retrievePokemon = function (_req, _res) {
 }
 
 module.exports.retrievePokemonByName = function (_req, _res) {
-    PokemonSchema.findById(_req.params.name, function (_err, _pokemon) {
+    PokemonSchema.findOne({ name: _req.params.name }, function (_err, _pokemon) {
     if (_err)
-        _res.send(`${_pokemon.name} does not currently exist in our center's records!`, _err);
-    _res.json({
-        message: `${_pokemon.name}, has been retrieved for you!`,
-        data: _pokemon
-    });
+        _res.status('500').send('Something went wrong! We can\'t retrieve pokemon from our systems right now!', _err);
+    if(!!_pokemon)
+    {
+        _res.json({
+            message: `${_pokemon.name}, has been retrieved for you!`,
+            data: _pokemon
+        });
+    } else {
+        _res.status('404').send({
+            message: `${_req.params.name } does not currently exist in our center's records!`
+        });
+    }
 });
 }
 
@@ -33,7 +40,7 @@ module.exports.addPokemon = function (_req, _res) {
     Pokemon.hp = _req.body.hp;
     Pokemon.attackMoves = _req.body.attackMoves;
     
-// save the Pokemon and check for _errors
+// save the Pokemon and check for _err
     Pokemon.save(function (_err) {
         if (_err)
             _res.json('Something went wrong transporting your pokemon!', _err);

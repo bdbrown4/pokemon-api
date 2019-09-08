@@ -25,4 +25,3 @@ app.use(bodyParser.urlencoded({
  app.use(bodyParser.json());
 // Use Api routes in the App
 app.use('/api', apiRoutes);
-app.use('/retrievePokemon', apiRoutes);
