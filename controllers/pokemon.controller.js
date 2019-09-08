@@ -6,6 +6,7 @@ exports.retrievePokemon = function (_req, _res) {
 };
 // Handle create Pokemon actions
 exports.addPokemon = function (_req, _res) {
+    SchemaService.addPokemon(_req, _res);
 };
 
 // Retrieves Pokemon by name
