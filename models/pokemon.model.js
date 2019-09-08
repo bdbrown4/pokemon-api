@@ -1,7 +1,8 @@
 module.exports = PokemonModel = {
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     gender: {
         type: String,

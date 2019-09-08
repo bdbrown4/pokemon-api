@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const PokemonModel = require('../models/pokemon.model');
+
 // Export Pokemon model
-let PokemonSchema = module.exports = mongoose.model('pokemon', mongoose.Schema(PokemonModel, { collection: 'Pokemon' }));
+const PokemonSchema = module.exports = mongoose.model('pokemon', mongoose.Schema(PokemonModel, { collection: 'Pokemon' }));
 
 module.exports.retrievePokemon = function (_req, _res) {
     PokemonSchema.find((_err, _pokemon) => {
@@ -29,7 +30,7 @@ module.exports.retrievePokemonByName = function (_req, _res) {
 }
 
 module.exports.addPokemon = function (_req, _res) {
-    var Pokemon = new Pokemon();
+    let Pokemon = new PokemonSchema();
     Pokemon.name = _req.body.name;
     Pokemon.gender = _req.body.gender;
     Pokemon.powerType = _req.body.powerType;
@@ -43,11 +44,16 @@ module.exports.addPokemon = function (_req, _res) {
 // save the Pokemon and check for _err
     Pokemon.save(function (_err) {
         if (_err)
-            _res.json('Something went wrong transporting your pokemon!', _err);
-        _res.json({
-            message: `Your pokemon, ${_pokemon.name}, has been successfuly transported to our Pokemon Center!`,
-            data: Pokemon
-        });
+            _res.status('400').send({
+                displayMessage: 'Something went wrong! We can\'t send your pokemon to our systems right now!', 
+                errorMessage: _err.errmsg
+            });
+        else {
+            _res.json({
+                message: `Your pokemon, ${Pokemon.name}, has been successfuly transported to our Pokemon Center!`,
+                data: Pokemon
+            });
+        }
     });
 }
 
