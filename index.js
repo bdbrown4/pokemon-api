@@ -3,7 +3,8 @@ const express = require('express');
 // Import routes
 const pokemonRoutes = require("./api-routes/pokemon.routes");
 const itemRoutes = require("./api-routes/item.routes");
-const apiRoutes = [pokemonRoutes, itemRoutes];
+const pingRoutes = require("./api-routes/ping.routes");
+const apiRoutes = [pokemonRoutes, itemRoutes, pingRoutes];
 // import bodyParser
 const bodyParser = require('body-parser');
 // import mongooseDbConnection
