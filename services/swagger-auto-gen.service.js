@@ -1,4 +1,4 @@
-const swaggerJsdoc = require('swagger-jsdoc');
+const SwaggerJsdoc = require('swagger-jsdoc');
 
 const options = {
   swaggerDefinition: {
@@ -7,10 +7,10 @@ const options = {
       version: '1.0.0',
       description: 'Pokemon Storage Center allows for trainers to store and retrieve Pokemon and items!',
     },
-    host: `http://${process.env.IP || 'localhost'}:${process.env.PORT || 8080}`,
-    baseRoute: '/api'
+    host: `${process.env.IP || 'localhost'}:${process.env.PORT || 8080}/api`,
+    baseRoute: ''
   },
-  apis: ['../api-routes/pokemon.routes.js']
+  apis: ['**/*.routes.js']
 };
 
-module.exports = specs = swaggerJsdoc(options);
+module.exports = SwaggerJsdoc(options);

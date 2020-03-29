@@ -11,12 +11,21 @@ const mongooseDbConnection = require('./services/mongoose-provider.service');
 // import swagger dependencies
 const swaggerUi = require('swagger-ui-express');
 const specs = require('./services/swagger-auto-gen.service');
+// cors middleware
+const cors = require('cors');
 // Initialize the app
 const app = express();
 // Setup server port
 let port = process.env.PORT || 8080;
 // Added check for DB connection
 mongooseDbConnection ? console.log("Db connected successfully") : console.log("Error connecting db");
+// initialize cors
+app.use(cors({
+     origin: "*",
+     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+     preflightContinue: true,
+     optionsSuccessStatus: 204
+}));
 // Send message for default URL
 app.get('/', (_req, _res) => _res.send('Hello World with Express'));
 // Launch app to listen to specified port
