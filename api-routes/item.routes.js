@@ -5,13 +5,6 @@ const itemController = require('../controllers/item.controller');
 
 /**
  * @swagger
- * definitions:
- *   Item:
- *     properties:
- *       name:
- *         type: string
-/**
- * @swagger
  * /item/retrieveItems:
  *   get:
  *     tags:
@@ -24,6 +17,10 @@ const itemController = require('../controllers/item.controller');
  *         description: An array of items
  *         schema:
  *           $ref: '#/definitions/Item'
+ *         headers:
+ *            Access-Control-Allow-Origin:
+ *              type: string
+ *            
  */
 router.route('/item/retrieveItems').get(itemController.retrieveItems);
 router.route('/item/addItems').post(itemController.addItems);
