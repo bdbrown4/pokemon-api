@@ -19,7 +19,7 @@ const app = express();
 // Setup server port
 let port = process.env.PORT || 8080;
 // Added check for DB connection
-mongooseDbConnection ? console.log("Db connected successfully") : console.log("Error connecting db");
+mongooseDbConnection.readyState !== mongooseDbConnection.states.disconnected ? console.log("Db connected successfully") : console.log("Error connecting db");
 // initialize cors
 app.use(cors({
      origin: "*",
