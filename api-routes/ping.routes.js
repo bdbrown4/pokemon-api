@@ -11,8 +11,6 @@ const router = require('express').Router();
    *     responses:
    *       200:
    *         description: API is operational.
- *         schema:
- *           $ref: '#/definitions/Ping'
  *         headers:
  *            Access-Control-Allow-Origin:
  *              type: string
