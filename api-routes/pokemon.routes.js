@@ -11,6 +11,8 @@ const pokemonController = require('../controllers/pokemon.controller');
  *     properties:
  *       name:
  *         type: string
+ *       pokeId:
+ *         type: number
  *       gender:
  *         type: string
  *       powerType:

@@ -35,6 +35,7 @@ module.exports.retrievePokemonByName = function (_req, _res) {
 module.exports.addPokemon = function (_req, _res) {
     let Pokemon = new PokemonSchema();
     Pokemon.name = _req.body.name;
+    Pokemon.pokeId = _req.body.pokeId;
     Pokemon.gender = _req.body.gender;
     Pokemon.powerType = _req.body.powerType;
     Pokemon.powerSubType = _req.body.powerSubType;
